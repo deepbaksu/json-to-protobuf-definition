@@ -11,8 +11,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "prepublish": "tsc",
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier \"*.{js,ts,json,yml,yaml,md}\" \"src/**/*.{ts,js,json}\" --write"
   },
   "devDependencies": {
     "@types/jest": "^26.0.3",
