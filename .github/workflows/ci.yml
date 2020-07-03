@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-        # install protoc
+      # install protoc
       - uses: arduino/setup-protoc@master
 
       - run: yarn
