@@ -4,6 +4,7 @@ import {
   ProtoPrimitive,
   ProtoType,
 } from './models/models_pb'
+import { normalizeProtoFieldName } from '../dist/field_name_normalize'
 
 export function parseProtoField(
   obj: unknown,
@@ -11,15 +12,15 @@ export function parseProtoField(
   fieldTag: number,
 ): ProtoField {
   const protoField = new ProtoField()
-  protoField.setName(fieldName)
+  protoField.setName(normalizeProtoFieldName(fieldName))
   protoField.setTag(fieldTag)
 
   switch (typeof obj) {
     case 'string': {
       const protoType = new ProtoType()
       protoType.setProtoTypePrimitive(ProtoPrimitive.PROTO_PRIMITIVE_STRING)
-
       protoField.setType(protoType)
+      break
     }
   }
 

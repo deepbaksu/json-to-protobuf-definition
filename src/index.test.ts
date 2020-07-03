@@ -23,7 +23,7 @@ describe('index', () => {
     expected.setName('root')
 
     const protoField = new ProtoField()
-    protoField.setName('keyName')
+    protoField.setName('key_name')
     protoField.setTag(1)
 
     const protoType = new ProtoType()
