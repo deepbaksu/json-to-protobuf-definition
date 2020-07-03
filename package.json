@@ -1,0 +1,20 @@
+{
+  "name": "json-to-protobuf-definition",
+  "version": "1.0.0",
+  "description": "Generate Protocol Buffer definition from JSON",
+  "main": "dist/index.js",
+  "files": [
+    "dist/**/*"
+  ],
+  "repository": "https://github.com/kkweon/json-to-protobuf-definition.git",
+  "author": "Mo Kweon <kkweon@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.6"
+  }
+}
