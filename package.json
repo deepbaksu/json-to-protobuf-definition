@@ -15,7 +15,7 @@
     "build": "yarn protoc && tsc",
     "test": "jest",
     "lint": "eslint *.{js,json} src/**/*.ts",
-    "format": "prettier \"*.{js,ts,json,yml,yaml,md}\" \"src/**/*.{ts,js,json}\" \".github/**/*.{yml,yaml}\" --write"
+    "format": "prettier \"*.{js,ts,json,yml,yaml,md}\" \"src/**/*.{ts,js,json}\" \".github/**/*.{yml,yaml}\" --write",
     "clean": "rm -rf dist",
     "protoc": "protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --js_out=import_style=commonjs,binary:. --ts_out=. src/**/*.proto"
   },

@@ -3,3 +3,4 @@ node_modules
 /coverage/
 *_pb.d.ts
 *_pb.js
+yarn-error.log

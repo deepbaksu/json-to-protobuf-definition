@@ -4,6 +4,7 @@ module.exports = {
     es2020: true,
     node: true,
   },
+  ignorePatterns: ['**/*_pb.*'],
   extends: [
     'eslint:recommended',
     'plugin:jest/all',
