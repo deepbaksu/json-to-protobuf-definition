@@ -1,6 +1,6 @@
 import { generateProtoDefinition } from '.'
 
-it('should parse simple JSON to Protocol Buffer', () => {
+it.skip('should parse simple JSON to Protocol Buffer', () => {
   const input = `
   {
     "name": "Mo Kweon"
