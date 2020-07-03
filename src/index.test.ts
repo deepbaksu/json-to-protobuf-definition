@@ -1,10 +1,12 @@
-it("should parse simple JSON to Protocol Buffer", () => {
+import { generateProtoDefinition } from '.'
+
+it('should parse simple JSON to Protocol Buffer', () => {
   const input = `
   {
-    "name": "Mo Kweon",
-  }`;
+    "name": "Mo Kweon"
+  }`
 
   expect(generateProtoDefinition(input)).toEqual(`message Root {
   string name = 1;
-}`);
-});
+}`)
+})

@@ -11,10 +11,14 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.3",
+    "jest": "^26.1.0",
     "prettier": "^2.0.5",
+    "ts-jest": "^26.1.1",
     "typescript": "^3.9.6"
   }
 }
