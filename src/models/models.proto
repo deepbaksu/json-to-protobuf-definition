@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+message ProtoMessage {
+  string name = 1;
+  repeated ProtoField fields = 2;
+}
+
+message ProtoField {
+  ProtoType type = 1;
+  string name = 2;
+  int64 tag = 3;
+  bool repeated = 4;
+}
+
+// ProtoType represents the type of the ProtoField.
+// ProtoField can have a primitive type or complex Message type.
+message ProtoType {
+  oneof type {
+    ProtoMessage proto_type_message = 1;
+    ProtoPrimitive proto_type_primitive = 2;
+  }
+}
+
+// ProtoPrimitive type is anything that is not Enum or Message or any complex type.
+//
+// For example, int64 field_name = 1;
+enum ProtoPrimitive {
+  PROTO_PRIMITIVE_UNKNOWN = 0;
+  PROTO_PRIMITIVE_INT64 = 1;
+  PROTO_PRIMITIVE_STRING = 2;
+  PROTO_PRIMITIVE_BOOL = 3;
+}
