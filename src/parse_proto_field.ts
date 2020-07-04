@@ -1,5 +1,5 @@
 import { ProtoField, ProtoPrimitive, ProtoType } from './models/models_pb'
-import { normalizeProtoFieldName } from './field_name_normalize'
+import { normalizeProtoFieldName } from './normalize_proto_field_name'
 
 // If there is no remainder when x % 1, it's an integer.
 function isInt(x: number): boolean {
