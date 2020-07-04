@@ -4,7 +4,7 @@ import {
   ProtoPrimitive,
   ProtoType,
 } from './models/models_pb'
-import { normalizeProtoFieldName } from './field_name_normalize'
+import { normalizeProtoFieldName } from './normalize_proto_field_name'
 
 export function parseProtoField(
   obj: unknown,
