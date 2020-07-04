@@ -1,10 +1,12 @@
 import {
   ProtoField,
+  ProtoMessage,
   ProtoPrimitive,
   ProtoPrimitiveMap,
   ProtoType,
 } from './models/models_pb'
 import { parseProtoField } from './parse_proto_field'
+import pascalcase from 'pascalcase'
 
 const keyName: string = 'key_name'
 const tagNumber: number = 1
@@ -71,6 +73,121 @@ describe('parse_proto_field', () => {
         tagNumber,
         ProtoPrimitive.PROTO_PRIMITIVE_DOUBLE,
       ),
+    )
+  })
+
+  it('should convert null to ProtoField', () => {
+    expect.hasAssertions()
+
+    const protoField = new ProtoField()
+    protoField.setName(keyName)
+    protoField.setTag(tagNumber)
+
+    // it should have an empty proto message
+    const protoType = new ProtoType()
+
+    const protoMessage = new ProtoMessage()
+    protoMessage.setName(pascalcase(keyName))
+    protoType.setProtoTypeMessage(protoMessage)
+    protoField.setType(protoType)
+
+    expect(parseProtoField(null, keyName, tagNumber)).toStrictEqual(protoField)
+  })
+
+  it('should convert nested object to ProtoField', () => {
+    expect.hasAssertions()
+
+    // this should be translated into
+    // KeyName key_name = tagNumber
+    //
+    // message KeyName {
+    //   Person person = 1
+    // }
+    //
+    // message Person {
+    //   int64 id = 1;
+    //   string name = 2;
+    // }
+    const inputObject = {
+      person: {
+        id: 1,
+        name: 'Mo',
+      },
+    }
+
+    const idField = buildPrimitiveProtoField(
+      /*fieldName=*/ 'id',
+      /*tagNumber=*/ 1,
+      ProtoPrimitive.PROTO_PRIMITIVE_INT64,
+    )
+    const nameField = buildPrimitiveProtoField(
+      /*fieldName=*/ 'name',
+      /*tagNumber=*/ 2,
+      ProtoPrimitive.PROTO_PRIMITIVE_STRING,
+    )
+
+    const personProtoMessage = new ProtoMessage()
+    personProtoMessage.setName('Person')
+    personProtoMessage.setFieldsList([idField, nameField])
+
+    const personProtoType = new ProtoType()
+    personProtoType.setProtoTypeMessage(personProtoMessage)
+
+    const personField = new ProtoField()
+    personField.setType(personProtoType)
+    personField.setTag(1)
+    personField.setName('person')
+
+    const keyNameMessage = new ProtoMessage()
+    keyNameMessage.setName('KeyName')
+    keyNameMessage.addFields(personField)
+
+    const keyNameProtoType = new ProtoType()
+    keyNameProtoType.setProtoTypeMessage(keyNameMessage)
+
+    const keyNameField = new ProtoField()
+    keyNameField.setName(keyName)
+    keyNameField.setTag(tagNumber)
+    keyNameField.setType(keyNameProtoType)
+
+    expect(parseProtoField(inputObject, keyName, tagNumber)).toStrictEqual(
+      keyNameField,
+    )
+  })
+
+  it('should convert a simple object to ProtoField', () => {
+    expect.hasAssertions()
+    // This is equivalent to
+    //
+    // KeyName key_name = tagNumber;
+    //
+    // message KeyName {
+    //   string name = 1;
+    // }
+    const input = {
+      name: 'Mo Kweon',
+    }
+
+    const nameField = buildPrimitiveProtoField(
+      'name',
+      1,
+      ProtoPrimitive.PROTO_PRIMITIVE_STRING,
+    )
+
+    const keyNameMessage = new ProtoMessage()
+    keyNameMessage.setName('KeyName')
+    keyNameMessage.addFields(nameField)
+
+    const keyNameProtoType = new ProtoType()
+    keyNameProtoType.setProtoTypeMessage(keyNameMessage)
+
+    const keyNameField = new ProtoField()
+    keyNameField.setType(keyNameProtoType)
+    keyNameField.setName(keyName)
+    keyNameField.setTag(tagNumber)
+
+    expect(parseProtoField(input, keyName, tagNumber)).toStrictEqual(
+      keyNameField,
     )
   })
 
