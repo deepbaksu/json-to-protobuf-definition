@@ -48,10 +48,9 @@ export function parseProtoField(
     }
 
     case 'object': {
-      // There are 3 possible case: null, array, object
+      // There are 3 possible cases: null, array, object
       // null and object are treated the same (creating an message).
       // array will be repeated message
-
       if (obj === null) {
         const protoType = new ProtoType()
         const protoMessage = new ProtoMessage()
