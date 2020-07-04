@@ -1,31 +1,9 @@
 import {
   ProtoMessage,
-  ProtoField,
-  ProtoPrimitive,
-  ProtoType,
+
+
 } from './models/models_pb'
-import { normalizeProtoFieldName } from './field_name_normalize'
-
-export function parseProtoField(
-  obj: unknown,
-  fieldName: string,
-  fieldTag: number,
-): ProtoField {
-  const protoField = new ProtoField()
-  protoField.setName(normalizeProtoFieldName(fieldName))
-  protoField.setTag(fieldTag)
-
-  switch (typeof obj) {
-    case 'string': {
-      const protoType = new ProtoType()
-      protoType.setProtoTypePrimitive(ProtoPrimitive.PROTO_PRIMITIVE_STRING)
-      protoField.setType(protoType)
-      break
-    }
-  }
-
-  return protoField
-}
+import { parseProtoField } from './parse_proto_field'
 
 export function parseRootObjectToProtoMessage(
   obj: object,
