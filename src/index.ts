@@ -1,8 +1,4 @@
-import {
-  ProtoMessage,
-
-
-} from './models/models_pb'
+import { ProtoMessage } from './models/models_pb'
 import { parseProtoField } from './parse_proto_field'
 
 export function parseRootObjectToProtoMessage(
