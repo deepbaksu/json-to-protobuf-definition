@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # install protoc
+      - uses: arduino/setup-protoc@master
+
+      - run: yarn
+
+      - run: yarn test --coverage
+
+      - run: yarn lint
+
+      - uses: codecov/codecov-action@v1
