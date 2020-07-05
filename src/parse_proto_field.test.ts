@@ -191,6 +191,47 @@ describe('parse_proto_field', () => {
     )
   })
 
+  it('should convert array into repeated field using the first element', () => {
+    expect.hasAssertions()
+    const input = ['mo kweon', 'mark hahn']
+
+    // Expected field
+    //
+    // repeated string key_name = tagNumber
+    const protoField = buildPrimitiveProtoField(
+      keyName,
+      tagNumber,
+      ProtoPrimitive.PROTO_PRIMITIVE_STRING,
+    )
+    protoField.setRepeated(true)
+
+    expect(parseProtoField(input, keyName, tagNumber)).toStrictEqual(protoField)
+  })
+
+  it('should treat the empty array as null', () => {
+    expect.hasAssertions()
+    const input: any[] = []
+
+    // Expected field
+    //
+    // repeated KeyName key_name = tagNumber
+    //
+    // message KeyName { }
+
+    const keyNameMessage = new ProtoMessage()
+    keyNameMessage.setName(pascalcase(keyName))
+    const keyNameMessageProtoType = new ProtoType()
+    keyNameMessageProtoType.setProtoTypeMessage(keyNameMessage)
+
+    const protoField = new ProtoField()
+    protoField.setName(keyName)
+    protoField.setTag(tagNumber)
+    protoField.setRepeated(true)
+    protoField.setType(keyNameMessageProtoType)
+
+    expect(parseProtoField(input, keyName, tagNumber)).toStrictEqual(protoField)
+  })
+
   function buildPrimitiveProtoField(
     keyName: string,
     tagNumber: number,
