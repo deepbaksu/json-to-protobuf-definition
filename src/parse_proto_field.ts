@@ -6,11 +6,8 @@ import {
 } from './models/models_pb'
 import { normalizeProtoFieldName } from './field_name_normalize'
 import pascalcase from 'pascalcase'
-
-// If there is no remainder when x % 1, it's an integer.
-function isInt(x: number): boolean {
-  return x % 1 === 0
-}
+import { createEmptyProtoType } from './create_empty_proto_type'
+import { isInt } from './number_utils'
 
 export function parseProtoField(
   obj: unknown,
@@ -52,21 +49,31 @@ export function parseProtoField(
       // null and object are treated the same (creating an message).
       // array will be repeated message
       if (obj === null) {
-        const protoType = new ProtoType()
-        const protoMessage = new ProtoMessage()
-        protoMessage.setName(pascalcase(fieldName))
-        protoType.setProtoTypeMessage(protoMessage)
-
-        protoField.setType(protoType)
-        break
+        protoField.setType(createEmptyProtoType(fieldName))
       } else if (Array.isArray(obj)) {
-        // TODO(kkweon): Handle array
+        if (obj.length === 0) {
+          protoField.setType(createEmptyProtoType(fieldName))
+          protoField.setRepeated(true)
+        } else {
+          // use the first element to infer the type
+          // TODO(kkweon): Merge messages when multiple different type appears in the array.
+          const elementProtoField = parseProtoField(obj[0], fieldName, fieldTag)
+          elementProtoField.setRepeated(true)
+
+          // it can safely return here because the type of the array element
+          // gets lifted.
+          //
+          // For example, { name: ["mo", "mark"] }
+          // it should become `repeated string name = 1`
+          // because the type of "mo" is string.
+          return elementProtoField
+        }
       } else {
         const protoMessage = new ProtoMessage()
         protoMessage.setName(pascalcase(fieldName))
 
         let tag = 1
-        // object
+
         for (const [key, msg] of Object.entries(obj)) {
           protoMessage.addFields(parseProtoField(msg, key, tag++))
         }
