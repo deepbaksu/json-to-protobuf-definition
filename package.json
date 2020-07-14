@@ -1,13 +1,16 @@
 {
   "name": "json-to-protobuf-definition",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate Protocol Buffer definition from JSON",
   "main": "dist/index.js",
   "files": [
     "dist/**/*"
   ],
-  "repository": "https://github.com/kkweon/json-to-protobuf-definition.git",
+  "repository": "https://github.com/dl4ab/json-to-protobuf-definition.git",
   "author": "Mo Kweon <kkweon@gmail.com>",
+  "contributors": [
+    "Mark Hahn <mark.jun.hahn@gmail.com> (https://github.com/TangoEnSkai)"
+  ],
   "license": "MIT",
   "private": false,
   "scripts": {
