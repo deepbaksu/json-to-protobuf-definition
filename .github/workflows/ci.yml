@@ -22,3 +22,6 @@ jobs:
       - run: yarn lint
 
       - uses: codecov/codecov-action@v1
+
+      - run: yarn publish --patch
+        if: ${{ github.event_name == 'push' }}
