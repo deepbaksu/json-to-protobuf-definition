@@ -25,3 +25,5 @@ jobs:
 
       - run: yarn publish --patch
         if: ${{ github.event_name == 'push' }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
