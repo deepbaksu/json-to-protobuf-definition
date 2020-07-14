@@ -29,6 +29,10 @@ jobs:
 
       - uses: codecov/codecov-action@v1
 
+      - run: |
+          git config --global user.email "kkweon@gmail.com"
+          git config --global user.name "Mo Kweon"
+
       - run: yarn publish --patch
         if: ${{ github.event_name == 'push' }}
         env:
