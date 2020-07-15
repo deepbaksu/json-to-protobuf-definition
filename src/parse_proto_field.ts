@@ -4,10 +4,10 @@ import {
   ProtoPrimitive,
   ProtoType,
 } from './models/models_pb'
-import { normalizeProtoFieldName } from './field_name_normalize'
 import pascalcase from 'pascalcase'
 import { createEmptyProtoType } from './create_empty_proto_type'
 import { isInt } from './number_utils'
+import snakeCase from 'lodash.snakecase'
 
 export function parseProtoField(
   obj: unknown,
@@ -15,7 +15,7 @@ export function parseProtoField(
   fieldTag: number,
 ): ProtoField {
   const protoField = new ProtoField()
-  protoField.setName(normalizeProtoFieldName(fieldName))
+  protoField.setName(snakeCase(fieldName))
   protoField.setTag(fieldTag)
 
   switch (typeof obj) {
