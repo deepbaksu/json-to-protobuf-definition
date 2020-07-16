@@ -1,6 +1,6 @@
 {
   "name": "json-to-protobuf-definition",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Generate Protocol Buffer definition from JSON",
   "main": "dist/index.js",
   "files": [
