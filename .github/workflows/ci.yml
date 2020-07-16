@@ -33,7 +33,10 @@ jobs:
           git config --global user.email "kkweon@gmail.com"
           git config --global user.name "Mo Kweon"
 
-      - run: yarn publish --patch
+      - run: |
+          yarn publish --patch && \
+          git commit --all -m 'Publish the package' && \
+          git push
         if: ${{ github.event_name == 'push' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
