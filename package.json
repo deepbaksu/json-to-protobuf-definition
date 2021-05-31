@@ -6,6 +6,12 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/github",
+        {
+          "assets": ["dist/**/*.{js,ts,map}", "package.json"]
+        }
+      ],
       "@semantic-release/npm",
       [
         "@semantic-release/git",
