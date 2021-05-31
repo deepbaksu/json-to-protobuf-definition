@@ -35,7 +35,7 @@
   "files": [
     "dist/**/*"
   ],
-  "repository": "https://github.com/dl4ab/json-to-protobuf-definition.git",
+  "repository": "https://github.com/deepbaksu/json-to-protobuf-definition.git",
   "author": "Mo Kweon <kkweon@gmail.com>",
   "contributors": [
     "Mark Hahn <mark.jun.hahn@gmail.com> (https://github.com/TangoEnSkai)"
