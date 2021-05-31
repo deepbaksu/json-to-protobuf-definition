@@ -20,11 +20,12 @@ jobs:
 
       # install protoc
       - uses: arduino/setup-protoc@master
-      - run: yarn
-      - run: yarn lint
-      - run: yarn test --coverage
+      - run: npm install
+      - run: npm run lint
+      - run: npm run test -- --coverage
       - uses: codecov/codecov-action@v1
-      - env:
+
+      - run: npx semantic-release
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        run: yarn semantic-release

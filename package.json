@@ -11,6 +11,7 @@
         {
           "assets": [
             "dist/**/*.{js,ts,map}",
+            "README.md",
             "package.json"
           ]
         }
@@ -42,8 +43,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "prepublish": "yarn clean && yarn build",
-    "build": "yarn protoc && tsc",
+    "prepublish": "npm run clean && npm run build",
+    "build": "npm run protoc && tsc",
     "test": "jest",
     "lint": "eslint *.{js,json} src/**/*.ts",
     "format": "prettier \"*.{js,ts,json,yml,yaml,md}\" \"src/**/*.{ts,js,json}\" \".github/**/*.{yml,yaml}\" --write",
