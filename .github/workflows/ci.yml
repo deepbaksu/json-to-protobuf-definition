@@ -21,10 +21,10 @@ jobs:
       # install protoc
       - uses: arduino/setup-protoc@master
       - run: yarn
-      - run: yarn test --coverage
       - run: yarn lint
+      - run: yarn test --coverage
       - uses: codecov/codecov-action@v1
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        run: npx semantic-release
+        run: yarn semantic-release
