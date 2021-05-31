@@ -55,7 +55,7 @@ ${convertProtoFields(protoMessage.getFieldsList(), /*depth=*/ 1)}
 function convertProtoFields(protoFields: ProtoField[], depth: number): string {
   const prefix = '  '.repeat(depth)
   return protoFields
-    .map(protoField => prefix + convertProtoField(protoField))
+    .map((protoField) => prefix + convertProtoField(protoField))
     .join('\n')
 }
 

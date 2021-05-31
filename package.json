@@ -9,7 +9,10 @@
       [
         "@semantic-release/github",
         {
-          "assets": ["dist/**/*.{js,ts,map}", "package.json"]
+          "assets": [
+            "dist/**/*.{js,ts,map}",
+            "package.json"
+          ]
         }
       ],
       "@semantic-release/npm",
