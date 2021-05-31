@@ -20,22 +20,11 @@ jobs:
 
       # install protoc
       - uses: arduino/setup-protoc@master
-
       - run: yarn
-
       - run: yarn test --coverage
-
       - run: yarn lint
-
       - uses: codecov/codecov-action@v1
-
-      - run: |
-          git config --global user.email "kkweon@gmail.com"
-          git config --global user.name "Mo Kweon"
-
-      - run: |
-          yarn publish --patch && \
-          git push
-        if: ${{ github.event_name == 'push' }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      - env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+        run: npx semantic-release

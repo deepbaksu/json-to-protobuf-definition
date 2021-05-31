@@ -1,6 +1,25 @@
 {
+  "release": {
+    "branches": [
+      "master"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "dist/**/*.{js,ts,map,css}",
+            "package.json"
+          ],
+          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
+    ]
+  },
   "name": "json-to-protobuf-definition",
-  "version": "1.0.9",
+  "version": "0.0.0-development",
   "description": "Generate Protocol Buffer definition from JSON",
   "main": "dist/index.js",
   "files": [
@@ -20,9 +39,11 @@
     "lint": "eslint *.{js,json} src/**/*.ts",
     "format": "prettier \"*.{js,ts,json,yml,yaml,md}\" \"src/**/*.{ts,js,json}\" \".github/**/*.{yml,yaml}\" --write",
     "clean": "rm -rf dist",
-    "protoc": "protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --js_out=import_style=commonjs,binary:. --ts_out=. src/**/*.proto"
+    "protoc": "protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --js_out=import_style=commonjs,binary:. --ts_out=. src/**/*.proto",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
+    "@semantic-release/git": "^9.0.0",
     "@types/jest": "^26.0.3",
     "@types/lodash.snakecase": "^4.1.6",
     "@types/pascalcase": "^1.0.0",
@@ -35,6 +56,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.1.0",
     "prettier": "^2.0.5",
+    "semantic-release": "^17.4.3",
     "ts-jest": "^26.1.1",
     "ts-protoc-gen": "^0.12.0",
     "typescript": "^3.9.6"
