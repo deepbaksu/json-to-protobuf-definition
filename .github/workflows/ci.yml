@@ -25,7 +25,10 @@ jobs:
       - run: npm test -- --coverage
       - uses: codecov/codecov-action@v1
 
-      - run: npx semantic-release
+      - uses: cycjimmy/semantic-release-action@v2
+        with:
+          extra_plugins: |
+            @semantic-release/git
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
