@@ -20,7 +20,7 @@ jobs:
 
       # install protoc
       - uses: arduino/setup-protoc@master
-      - run: npm install
+      - run: npm ci
       - run: npm run lint
       - run: npm test -- --coverage
       - uses: codecov/codecov-action@v1
