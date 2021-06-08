@@ -23,16 +23,31 @@ message Root {
 }
 ```
 
+## Install
+
+```shell
+npm install -D json-to-protobuf-definition
+yarn add -D json-to-protobuf-definition
+```
+
 ## How to use
 
 ```ts
-import { parseRootObjectToProtoMessage } from 'json-to-protobuf-definition'
+import {
+  convertProtoMessageToString,
+  parseRootObjectToProtoMessage,
+} from "json-to-protobuf-definition";
 
+// obtained from JSON.parse('{"name": "Mark Hahn""}')
 const input = {
-  name: 'Mark Hahn',
-}
+  name: "Mark Hahn",
+};
 
-const message = parseRootObjectToProtoMessage(input)
+const message = parseRootObjectToProtoMessage(input);
+console.log(convertProtoMessageToString(message));
+// message Root {
+//   string name = 1;
+// }
 ```
 
 ## How to develop
