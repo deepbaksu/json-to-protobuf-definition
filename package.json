@@ -24,8 +24,12 @@
   "description": "Generate Protocol Buffer definition from JSON",
   "main": "dist/index.js",
   "files": [
-    "dist/**/*"
+    "bin",
+    "dist"
   ],
+  "bin": {
+    "json-to-protobuf": "./bin/cli.js"
+  },
   "repository": "https://github.com/deepbaksu/json-to-protobuf-definition.git",
   "author": "Mo Kweon <kkweon@gmail.com>",
   "contributors": [
