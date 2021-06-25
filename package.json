@@ -41,7 +41,8 @@
     "format": "prettier \"*.{js,ts,json,yml,yaml,md}\" \"src/**/*.{ts,js,json}\" \".github/**/*.{yml,yaml}\" --write",
     "clean": "rm -rf dist",
     "protoc": "protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --js_out=import_style=commonjs,binary:. --ts_out=. src/**/*.proto",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@semantic-release/git": "^9.0.0",
@@ -55,8 +56,10 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
     "jest": "^27.0.3",
     "prettier": "^2.3.0",
+    "pretty-quick": "^3.1.1",
     "semantic-release": "^17.4.3",
     "ts-jest": "^27.0.2",
     "ts-protoc-gen": "^0.15.0",

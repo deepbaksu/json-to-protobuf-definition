@@ -21,6 +21,7 @@ describe('index', () => {
   })
 
   it('should convert the ProtoMessage to string', () => {
+    expect.hasAssertions()
     expect(convertProtoMessageToString(getSimpleProtoMessage())).toStrictEqual(`
 message Root {
   string field_name = 1;
@@ -28,6 +29,7 @@ message Root {
   })
 
   it('should convert multiple primitive fields to string', () => {
+    expect.hasAssertions()
     const protoMessage = getSimpleProtoMessage()
     protoMessage.addFields(
       getPrimitiveProtoField(
@@ -57,6 +59,30 @@ message Root {
   bool bool_name = 2;
   int64 int64_name = 3;
   double double_name = 4;
+}`)
+  })
+
+  it('should convert nested objects', () => {
+    expect.hasAssertions()
+    const input = {
+      code: 100,
+      msg: 'success',
+      result: {
+        token:
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NSJ9.slBCWsGnvLyUCVIjaLHlS67rNqyWAd1f9BB6D1oc7d0',
+      },
+    }
+
+    expect(convertProtoMessageToString(parseRootObjectToProtoMessage(input)))
+      .toStrictEqual(`
+message Root {
+  int64 code = 1;
+  string msg = 2;
+
+  message Result {
+    string token = 1;
+  }
+  Result result = 3;
 }`)
   })
 })

@@ -32,11 +32,13 @@ export function parseRootObjectToProtoMessage(
  */
 export function convertProtoMessageToString(
   protoMessage: ProtoMessage,
+  depth: number = 0,
 ): string {
+  const prefix = '  '.repeat(depth)
   return `
-message ${protoMessage.getName()} {
-${convertProtoFields(protoMessage.getFieldsList(), /*depth=*/ 1)}
-}`
+${prefix}message ${protoMessage.getName()} {
+${convertProtoFields(protoMessage.getFieldsList(), depth + 1)}
+${prefix}}`
 }
 
 /**
@@ -53,9 +55,8 @@ ${convertProtoFields(protoMessage.getFieldsList(), /*depth=*/ 1)}
  * @returns string
  */
 function convertProtoFields(protoFields: ProtoField[], depth: number): string {
-  const prefix = '  '.repeat(depth)
   return protoFields
-    .map((protoField) => prefix + convertProtoField(protoField))
+    .map((protoField) => convertProtoField(protoField, depth))
     .join('\n')
 }
 
@@ -66,7 +67,9 @@ function convertProtoFields(protoFields: ProtoField[], depth: number): string {
  *
  * TODO: Support embedded types.
  */
-function convertProtoField(protoField: ProtoField): string {
+function convertProtoField(protoField: ProtoField, depth: number): string {
+  let indent = '  '.repeat(depth)
+
   if (protoField.getType()?.hasProtoTypePrimitive()) {
     let prefix = protoField.getRepeated() ? 'repeated ' : ''
 
@@ -74,7 +77,21 @@ function convertProtoField(protoField: ProtoField): string {
       protoField.getType()!.getProtoTypePrimitive(),
     )
 
-    return `${prefix}${protoFieldType} ${protoField.getName()} = ${protoField.getTag()};`
+    return `${indent}${prefix}${protoFieldType} ${protoField.getName()} = ${protoField.getTag()};`
+  } else if (protoField.getType()?.hasProtoTypeMessage()) {
+    let prefix = protoField.getRepeated() ? 'repeated ' : ''
+
+    const protoFieldType = protoField
+      .getType()
+      ?.getProtoTypeMessage()
+      ?.getName()
+
+    const protoMessage = protoField.getType()?.getProtoTypeMessage()
+
+    return `${
+      protoMessage ? convertProtoMessageToString(protoMessage, depth) : ''
+    }
+${indent}${prefix}${protoFieldType} ${protoField.getName()} = ${protoField.getTag()};`
   }
 
   // protoField.getType()?.hasProtoTypeMessage()
