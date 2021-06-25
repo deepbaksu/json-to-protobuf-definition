@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require('fs')
 const lib = require('../dist/index')
 const data = fs.readFileSync(0, 'utf-8')
