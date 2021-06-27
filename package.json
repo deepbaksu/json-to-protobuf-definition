@@ -20,7 +20,7 @@
     ]
   },
   "name": "json-to-protobuf-definition",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "Generate Protocol Buffer definition from JSON",
   "main": "dist/index.js",
   "files": [
